@@ -1,0 +1,48 @@
+{
+  "name": "fastparty",
+  "version": "1.0.0",
+  "description": "Backend FastParty Easy sales\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[\u001b[\u001b[C\u001b[C\u001b[easy sales of tickets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luisemecasa/fastparty.git"
+  },
+  "keywords": [
+    "\u0016node",
+    "backend",
+    "api",
+    "events",
+    "ticketing",
+    "festival",
+    "party",
+    "boletos"
+  ],
+  "author": "Luis Canon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luisemecasa/fastparty/issues"
+  },
+  "homepage": "https://github.com/luisemecasa/fastparty#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.9.0",
+    "mongoose": "^8.7.0",
+    "multer": "^1.4.5-lts.1",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "directories": {
+    "test": "tests"
+  }
+}
