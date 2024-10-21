@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
+const User = require('../models/user.model'); // Asegúrate de ajustar la ruta según tu estructura de proyecto
 const secret = process.env.JWT_SECRET || 'FAST_PARTY';
-
 
 const authenticateToken = (req, res, next) => {
   const token = req.headers['authorization']?.split(' ')[1]; // Obtener el token del encabezado
@@ -16,11 +16,17 @@ const authenticateToken = (req, res, next) => {
 };
 
 const checkRole = (roles) => (req, res, next) => {
+  // Asegúrate de que el modelo `User` esté correctamente importado
   User.findById(req.user._id)
     .then(user => {
+      if (!user) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+      }
+
       if (!roles.includes(user.role)) {
         return res.status(403).json({ message: 'Acceso denegado' });
       }
+
       next();
     })
     .catch(err => {
@@ -35,9 +41,8 @@ const checkSuperadmin = (req, res, next) => {
   next();
 };
 
-
 module.exports = {
   authenticateToken,
   checkRole,
   checkSuperadmin
-}
+};
