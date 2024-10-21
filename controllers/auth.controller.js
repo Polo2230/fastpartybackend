@@ -75,7 +75,7 @@ exports.loginUser = async (req, res) => {
 
   try {
     // Verificar si el usuario existe
-    let user = await User.findOne({ email });
+    let user = await User.findOne({ email }).populate('customerProfile');
     if (!user) {
       return res.status(400).json({ message: "El usuario no existe" });
     }
@@ -86,13 +86,14 @@ exports.loginUser = async (req, res) => {
       return res.status(400).json({ message: "Credenciales inválidas" });
     }
 
-    // Crear el payload para el JWT
+    // Crear el payload para el JWT con la misma información que en registerUser
     const payload = {
       user: {
         id: user.id,
-        role: user.role, 
+        role: user.role,
         username: user.username,
         email: user.email,
+        customerProfile: user.customerProfile, // Incluimos el perfil de cliente
       },
     };
 
@@ -100,7 +101,7 @@ exports.loginUser = async (req, res) => {
     jwt.sign(
       payload,
       secret,
-      { expiresIn: "1h" },
+      { expiresIn: "1h" }, // Duración del token
       (err, token) => {
         if (err) throw err;
         res.status(200).json({ token });

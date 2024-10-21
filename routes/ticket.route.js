@@ -6,8 +6,7 @@ const { authenticateToken, checkRole } = require("../middlewares/auth");
 // Ruta para crear un nuevo boleto (solo accesible para administradores)
 router.post(
   "/",
-  authenticateToken,
-  checkRole(["admin", "superadmin"]), // Verifica que sea admin o superadmin
+  authenticateToken,  
   ticketController.createTicket
 );
 
@@ -15,7 +14,6 @@ router.post(
 router.get(
   "/",
   authenticateToken,
-  checkRole(["admin", "superadmin"]),
   ticketController.getTickets
 );
 
