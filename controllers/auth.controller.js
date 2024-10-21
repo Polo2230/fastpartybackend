@@ -11,7 +11,7 @@ exports.registerUser = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { username, email, password, phone, birthday } = req.body;
+  const { username, email, password, phone, fullname, identification, birthday, role } = req.body;
 
   try {
     let user = await User.findOne({ email });
@@ -21,11 +21,11 @@ exports.registerUser = async (req, res) => {
 
     // Crear nuevo perfil de cliente
     const customer = new Customer({
-      fullname,
-      email,
-      phone,
-      identification,
-      birthday      
+      fullname, // Nombre completo
+      email, // Email del cliente
+      phone, // Teléfono
+      identification, // Identificación del cliente (DNI, cédula, etc.)
+      birthday, // Fecha de nacimiento
     });
     await customer.save();
 
@@ -34,7 +34,8 @@ exports.registerUser = async (req, res) => {
       username,
       email,
       password, // La contraseña se encripta automáticamente en el pre-save hook
-      customerProfile: customer._id
+      customerProfile: customer._id, // Referencia al perfil del cliente
+      role,
     });
 
     await user.save();
@@ -53,7 +54,7 @@ exports.registerUser = async (req, res) => {
     jwt.sign(
       payload,
       secret,
-      { expiresIn: "1h" },
+      { expiresIn: "1h" }, // Duración del token
       (err, token) => {
         if (err) throw err;
         res.status(201).json({ token });
@@ -64,7 +65,6 @@ exports.registerUser = async (req, res) => {
     res.status(500).send("Error en el servidor");
   }
 };
-
 exports.loginUser = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
