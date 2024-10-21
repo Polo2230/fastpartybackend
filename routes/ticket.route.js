@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const ticketController = require("../controllers/ticket.controller");
-const { authenticateToken, checkRole } = require("../middleware/auth");
+const { authenticateToken, checkRole } = require("../middlewares/auth");
 
 // Ruta para crear un nuevo boleto (solo accesible para administradores)
 router.post(
   "/",
   authenticateToken,
-  checkRole(['admin', 'superadmin']), // Verifica que sea admin o superadmin
+  checkRole(["admin", "superadmin"]), // Verifica que sea admin o superadmin
   ticketController.createTicket
 );
 
@@ -15,7 +15,7 @@ router.post(
 router.get(
   "/",
   authenticateToken,
-  checkRole(['admin', 'superadmin']),
+  checkRole(["admin", "superadmin"]),
   ticketController.getTickets
 );
 
@@ -23,7 +23,7 @@ router.get(
 router.post(
   "/buy",
   authenticateToken,
-  checkRole(['user', 'vip', 'admin', 'superadmin']), // Verifica que el usuario esté registrado
+  checkRole(["user", "vip", "admin", "superadmin"]), // Verifica que el usuario esté registrado
   ticketController.buyTicket
 );
 

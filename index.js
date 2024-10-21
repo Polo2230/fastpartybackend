@@ -8,6 +8,7 @@ const authRoutes = require("./routes/auth.route");
 const userRoutes = require("./routes/user.route");
 const imageRoutes = require("./routes/image.route");
 const ticketRoutes = require("./routes/ticket.route");
+const discountRoutes = require("./routes/discount.route")
 
 app.use(cors());
 app.use(express.json());
@@ -25,6 +26,7 @@ app.use("/api/auth", authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/images', imageRoutes);
 app.use('/api/tickets', ticketRoutes);
+app.use("/api/discounts",discountRoutes);
 
 
 

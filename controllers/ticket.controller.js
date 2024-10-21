@@ -91,3 +91,20 @@ exports.buyTicket = async (req, res) => {
     res.status(500).json({ message: "Error al comprar la boleta", error });
   }
 };
+
+exports.getTickets = async (req, res) => {
+  try {
+    const tickets = await Ticket.find()
+      .populate("eventId", "title description")  // Poblamos solo algunos campos del evento
+      .populate("customerId", "fullname email"); // Poblamos solo algunos campos del cliente
+
+    if (!tickets.length) {
+      return res.status(404).json({ message: "No se encontraron boletos" });
+    }
+
+    res.status(200).json(tickets);
+  } catch (error) {
+    res.status(500).json({ message: "Error al obtener los boletos", error });
+  }
+};
+
